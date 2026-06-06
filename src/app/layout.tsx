@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Cinzel } from "next/font/google";
 import "./globals.css";
 import { RESTAURANT_INFO, REVIEWS } from "@/lib/constants";
 import { MotionProvider } from "@/components/motion";
@@ -12,12 +12,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
 });
 
 const OG_IMAGE = cdn("/images/JHK09408-Enhanced-NR-Edit.jpg");
@@ -79,10 +78,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  icons: {
-    icon: "/Logo.svg",
-    apple: "/Logo.svg",
   },
   other: {
     "theme-color": "#B8860B",
@@ -165,7 +160,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased overflow-x-hidden`}
+        className={`${inter.variable} ${cinzel.variable} antialiased overflow-x-hidden`}
       >
         <ConvexClientProvider>
           <MotionProvider>{children}</MotionProvider>

@@ -13,6 +13,10 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>("menu");
   const isValid = useQuery(api.auth.verifySession, token ? { token } : "skip");
   const logout = useMutation(api.auth.logout);
+  const pendingReservations = useQuery(
+    api.reservations.listPending,
+    token && isValid ? { token } : "skip"
+  );
 
   useEffect(() => {
     const saved = sessionStorage.getItem("admin_token");
@@ -33,7 +37,10 @@ export default function AdminPage() {
   if (token && isValid === undefined) {
     return (
       <div className="min-h-screen bg-[var(--color-ivory)] flex items-center justify-center">
-        <p className="text-[var(--color-text-muted)] text-sm">Načítání...</p>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-[var(--color-stone)] border-t-[var(--color-gold)] rounded-full animate-spin" />
+          <p className="text-[var(--color-text-muted)] text-sm">Načítání...</p>
+        </div>
       </div>
     );
   }
@@ -49,12 +56,19 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-ivory)]">
-      <AdminHeader activeTab={activeTab} onTabChange={setActiveTab} onLogout={handleLogout} />
-      {activeTab === "menu" ? (
-        <MenuEditor token={token} />
-      ) : (
-        <ReservationPanel token={token} />
-      )}
+      <AdminHeader
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onLogout={handleLogout}
+        pendingCount={pendingReservations?.length ?? 0}
+      />
+      <main className="lg:pl-72">
+        {activeTab === "menu" ? (
+          <MenuEditor token={token} />
+        ) : (
+          <ReservationPanel token={token} />
+        )}
+      </main>
     </div>
   );
 }

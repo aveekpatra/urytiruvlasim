@@ -93,7 +93,7 @@ export default function ReservacePage() {
             </span>
           </FadeIn>
           <FadeIn delay={0.4}>
-            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl italic mb-6">
+            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               Rezervace
             </h1>
           </FadeIn>

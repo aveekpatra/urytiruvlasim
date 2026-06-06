@@ -5,383 +5,320 @@ import {
   View,
   StyleSheet,
   Font,
-  Svg,
-  Path,
 } from "@react-pdf/renderer";
 import type { DailyMenuData } from "./DailyMenuPDF";
 
-// Register fonts — static TTF files from Fontsource CDN (compatible with @react-pdf/renderer)
+// Font and design match the restaurant's printed menu
+// (public/MENU_FINAL 21.3._TISK_TEST.pdf), which uses Cinzel Regular + Bold
+// in near-black on a white page with no decorative borders or ornaments.
+//
+// Static TTFs are self-hosted in /public/fonts and bundle latin + latin-ext
+// subsets per file (needed for Czech diacritics — see the earlier comment
+// block in DailyMenuPDF.tsx for the full rationale).
+const CINZEL_REGULAR = "/fonts/Cinzel-Regular.ttf";
+const CINZEL_BOLD = "/fonts/Cinzel-Bold.ttf";
+
 Font.register({
-  family: "Playfair",
+  family: "Cinzel",
   fonts: [
-    { src: "https://cdn.jsdelivr.net/fontsource/fonts/playfair-display@latest/latin-400-normal.ttf", fontWeight: 400 },
-    { src: "https://cdn.jsdelivr.net/fontsource/fonts/playfair-display@latest/latin-600-normal.ttf", fontWeight: 600 },
-    { src: "https://cdn.jsdelivr.net/fontsource/fonts/playfair-display@latest/latin-700-normal.ttf", fontWeight: 700 },
-    { src: "https://cdn.jsdelivr.net/fontsource/fonts/playfair-display@latest/latin-400-italic.ttf", fontWeight: 400, fontStyle: "italic" },
+    { src: CINZEL_REGULAR, fontWeight: 400 },
+    { src: CINZEL_BOLD, fontWeight: 700 },
   ],
 });
 
-Font.register({
-  family: "Inter",
-  fonts: [
-    { src: "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.ttf", fontWeight: 400 },
-    { src: "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-500-normal.ttf", fontWeight: 500 },
-  ],
-});
+// Disable hyphenation — the default engine can split Czech words at codepoint
+// boundaries and corrupt diacritic layout even when the glyphs exist.
+Font.registerHyphenationCallback((word) => [word]);
 
-const charcoal = "#2C2C2C";
-const muted = "#6B6560";
-const borderColor = "#C8C4BC";
-const green = "#15803d";
+// Colors sampled from the reference PDF: 100% K (pure black) for emphasized
+// elements and rich-black (CMYK 0.71/0.65/0.58/0.75 ≈ #14181C) for body. We
+// flatten to a single charcoal since the visible difference is negligible
+// when rendered on screen / printed at 1:1.
+const ink = "#1C1C1C";
 
+// Spacing is tight by design so a typical 4-section daily menu fits on a
+// single A4 page. Frames are absolutely positioned and `fixed`, so the borders
+// repeat correctly on every page when content does overflow — they no longer
+// get sliced by a page break.
 const s = StyleSheet.create({
   page: {
-    fontFamily: "Playfair",
-    backgroundColor: "#F8F6F1",
-    padding: 28,
+    fontFamily: "Cinzel",
+    backgroundColor: "#FFFFFF",
+    color: ink,
+    paddingTop: 56,
+    paddingBottom: 50,
+    paddingHorizontal: 70,
   },
-  // Outer border frame
-  frame: {
-    flex: 1,
-    borderWidth: 0.6,
-    borderColor: borderColor,
-    paddingTop: 50,
-    paddingBottom: 30,
-    paddingHorizontal: 60,
+  // Outer border frame — drawn on every page at fixed coordinates
+  pageFrameOuter: {
+    position: "absolute",
+    top: 28,
+    left: 28,
+    right: 28,
+    bottom: 28,
+    borderWidth: 0.7,
+    borderColor: ink,
   },
-  // Section header — large, THIN/regular weight, uppercase, generous spacing
-  sectionHeader: {
-    fontSize: 26,
-    fontWeight: 400,
-    letterSpacing: 2,
+  // Inner border frame — second thin rule for the classic nested look
+  pageFrameInner: {
+    position: "absolute",
+    top: 36,
+    left: 36,
+    right: 36,
+    bottom: 36,
+    borderWidth: 0.4,
+    borderColor: ink,
+  },
+  // Date subtitle at the top
+  dateLine: {
+    fontSize: 8,
+    letterSpacing: 2.5,
     textTransform: "uppercase",
-    color: charcoal,
+    color: ink,
     textAlign: "center",
-    marginBottom: 6,
+    marginBottom: 18,
   },
-  // Thin horizontal rule under section header
-  sectionRule: {
-    width: 200,
-    height: 0.4,
-    backgroundColor: borderColor,
-    marginHorizontal: "auto",
-    marginBottom: 20,
+  // Section heading — POLÉVKA / HLAVNÍ CHOD / DEZERT / NÁPOJE
+  sectionHeader: {
+    fontSize: 20,
+    fontWeight: 700,
+    letterSpacing: 4,
+    textTransform: "uppercase",
+    textAlign: "center",
+    color: ink,
+    marginBottom: 12,
   },
-  // Item name — bold, small-caps style, centered
+  // Vertical breathing room before each section *after* the first
+  sectionGap: {
+    height: 16,
+  },
+  // Wrapper around a single dish
+  itemBlock: {
+    marginBottom: 12,
+  },
+  // Item name — Cinzel Regular ~14pt, centered, uppercase
   itemName: {
     fontSize: 13,
-    fontWeight: 700,
-    letterSpacing: 0.8,
-    textTransform: "uppercase",
-    color: charcoal,
-    textAlign: "center",
-    marginBottom: 3,
-  },
-  // Item description + allergens inline — small caps, muted
-  itemDesc: {
-    fontFamily: "Inter",
-    fontSize: 7.5,
+    fontWeight: 400,
     letterSpacing: 1.2,
     textTransform: "uppercase",
-    color: muted,
     textAlign: "center",
-    lineHeight: 1.6,
+    color: ink,
+    marginBottom: 4,
+    lineHeight: 1.3,
+  },
+  // Description — Cinzel Regular, slightly looser leading
+  itemDesc: {
+    fontSize: 10.5,
+    fontWeight: 400,
+    letterSpacing: 0.6,
+    textAlign: "center",
+    color: ink,
+    lineHeight: 1.45,
     marginBottom: 2,
   },
-  // Weight on its own line
-  itemWeight: {
-    fontFamily: "Inter",
-    fontSize: 8,
-    color: muted,
+  // Allergens in parentheses
+  itemAllergens: {
+    fontSize: 9,
+    fontWeight: 400,
+    letterSpacing: 0.5,
     textAlign: "center",
+    color: ink,
+    marginTop: 1,
     marginBottom: 2,
   },
   // Vegetarian tag
   veg: {
-    fontFamily: "Inter",
-    fontSize: 7,
-    color: green,
+    fontSize: 8.5,
+    fontWeight: 700,
     textAlign: "center",
-    marginBottom: 2,
+    color: ink,
+    marginTop: 1,
   },
-  // Price line with dashes — "—— 295Kč ——"
+  // Decorated price row — "—— 295 Kč ——"
   priceRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 3,
-    marginBottom: 22,
+    marginTop: 4,
   },
-  priceLine: {
-    width: 55,
-    height: 0.5,
-    backgroundColor: charcoal,
+  priceRule: {
+    width: 38,
+    height: 0.6,
+    backgroundColor: ink,
   },
   priceText: {
     fontSize: 11,
     fontWeight: 700,
-    color: charcoal,
+    letterSpacing: 0.8,
     textAlign: "center",
-    marginHorizontal: 8,
-  },
-  // Spacer between sections
-  sectionSpacer: {
-    height: 30,
+    color: ink,
+    marginHorizontal: 9,
   },
   // Footer
   footerWrap: {
-    marginTop: "auto",
-    paddingTop: 16,
+    marginTop: 16,
+    paddingTop: 10,
     textAlign: "center",
   },
   footerText: {
-    fontFamily: "Inter",
-    fontSize: 6,
-    color: muted,
-    lineHeight: 1.8,
-    maxWidth: 380,
-    marginHorizontal: "auto",
-    marginBottom: 4,
-  },
-  footerSmall: {
-    fontFamily: "Inter",
-    fontSize: 6,
-    color: muted,
-    marginBottom: 4,
-    textTransform: "uppercase",
-    letterSpacing: 1,
-  },
-  // Ornament
-  ornamentWrap: {
-    alignItems: "center",
-    marginTop: 12,
-  },
-  // Date subtitle
-  dateLine: {
-    fontFamily: "Inter",
-    fontSize: 7,
-    letterSpacing: 2,
-    textTransform: "uppercase",
-    color: muted,
+    fontSize: 6.5,
+    fontWeight: 400,
+    color: ink,
+    lineHeight: 1.6,
     textAlign: "center",
-    marginBottom: 28,
+    marginBottom: 4,
   },
 });
 
-// Decorative corner ornament SVG — matching the PDF's flourish style
-function CornerOrnament({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
-  const size = 32;
-  const isTop = position === "tl" || position === "tr";
-  const isLeft = position === "tl" || position === "bl";
-
-  const style: Record<string, number | string> = {
-    position: "absolute",
-    width: size,
-    height: size,
-  };
-
-  if (isTop) style.top = 4;
-  else style.bottom = 4;
-  if (isLeft) style.left = 4;
-  else style.right = 4;
-
-  const scaleX = isLeft ? 1 : -1;
-  const scaleY = isTop ? 1 : -1;
-
-  return (
-    <View style={style}>
-      <Svg viewBox="0 0 32 32" width={size} height={size}>
-        {/* Main curving flourish lines */}
-        <Path
-          d="M2 2 C2 2, 10 2, 16 8 C22 14, 22 22, 22 30"
-          stroke={borderColor}
-          strokeWidth={0.7}
-          fill="none"
-          transform={`scale(${scaleX}, ${scaleY}) translate(${scaleX < 0 ? -32 : 0}, ${scaleY < 0 ? -32 : 0})`}
-        />
-        <Path
-          d="M2 2 C2 2, 2 10, 8 16 C14 22, 22 22, 30 22"
-          stroke={borderColor}
-          strokeWidth={0.7}
-          fill="none"
-          transform={`scale(${scaleX}, ${scaleY}) translate(${scaleX < 0 ? -32 : 0}, ${scaleY < 0 ? -32 : 0})`}
-        />
-        {/* Small inner curl */}
-        <Path
-          d="M4 4 C4 4, 7 4, 9 6 C11 8, 11 11, 11 14"
-          stroke={borderColor}
-          strokeWidth={0.5}
-          fill="none"
-          transform={`scale(${scaleX}, ${scaleY}) translate(${scaleX < 0 ? -32 : 0}, ${scaleY < 0 ? -32 : 0})`}
-        />
-        <Path
-          d="M4 4 C4 4, 4 7, 6 9 C8 11, 11 11, 14 11"
-          stroke={borderColor}
-          strokeWidth={0.5}
-          fill="none"
-          transform={`scale(${scaleX}, ${scaleY}) translate(${scaleX < 0 ? -32 : 0}, ${scaleY < 0 ? -32 : 0})`}
-        />
-      </Svg>
-    </View>
-  );
+function formatAllergens(allergens?: string): string | null {
+  if (!allergens || !allergens.trim()) return null;
+  return `(${allergens.trim()})`;
 }
 
 function PriceLine({ price }: { price: number }) {
   return (
     <View style={s.priceRow}>
-      <View style={s.priceLine} />
-      <Text style={s.priceText}>{price}Kč</Text>
-      <View style={s.priceLine} />
+      <View style={s.priceRule} />
+      <Text style={s.priceText}>{price} Kč</Text>
+      <View style={s.priceRule} />
     </View>
   );
 }
 
-// Bottom ornament matching the PDF's centered decorative element
-function BottomOrnament() {
+interface ItemFields {
+  name: string;
+  description?: string;
+  allergens?: string;
+  price: number;
+  isVegetarian?: boolean;
+}
+
+// Renders a single dish block (name → description → allergens → vegetarian
+// tag → price). Used both inside and outside of the section-header bundle.
+function ItemBlock({ item }: { item: ItemFields }) {
+  const allergens = formatAllergens(item.allergens);
   return (
-    <View style={s.ornamentWrap}>
-      <Svg viewBox="0 0 40 24" width={40} height={24}>
-        {/* Symmetrical fleur-de-lis style ornament */}
-        <Path
-          d="M20 4 C17 8, 10 10, 5 10 C10 10, 12 14, 12 20"
-          stroke={borderColor}
-          strokeWidth={0.6}
-          fill="none"
-        />
-        <Path
-          d="M20 4 C23 8, 30 10, 35 10 C30 10, 28 14, 28 20"
-          stroke={borderColor}
-          strokeWidth={0.6}
-          fill="none"
-        />
-        <Path
-          d="M12 20 C15 17, 18 17, 20 20 C22 17, 25 17, 28 20"
-          stroke={borderColor}
-          strokeWidth={0.6}
-          fill="none"
-        />
-        {/* Center dot */}
-        <Path
-          d="M19 10 A1 1 0 1 1 21 10 A1 1 0 1 1 19 10"
-          fill={borderColor}
-        />
-      </Svg>
+    <View style={s.itemBlock} wrap={false}>
+      <Text style={s.itemName}>{item.name}</Text>
+      {item.description ? (
+        <Text style={s.itemDesc}>{item.description}</Text>
+      ) : null}
+      {allergens ? <Text style={s.itemAllergens}>{allergens}</Text> : null}
+      {item.isVegetarian ? <Text style={s.veg}>(V)</Text> : null}
+      <PriceLine price={item.price} />
     </View>
   );
 }
 
-// Helper: format description with allergens inline like the PDF
-function formatDescWithAllergens(
-  description?: string,
-  allergens?: string
-): string {
-  const parts: string[] = [];
-  if (description) parts.push(description);
-  if (allergens) {
-    if (parts.length > 0) {
-      // Append allergens to description: "description (1,3,7)"
-      parts[parts.length - 1] += ` (${allergens})`;
-    } else {
-      parts.push(`(${allergens})`);
-    }
-  }
-  return parts.join("");
+// Renders a section. The heading is bundled with the first item inside a
+// `wrap={false}` View so the heading never lands alone at the bottom of a
+// page. Subsequent items are independent wrap={false} blocks so the section
+// can still split across pages cleanly when it's long.
+function Section({
+  title,
+  items,
+  isFirst,
+}: {
+  title: string;
+  items: ItemFields[];
+  isFirst: boolean;
+}) {
+  if (items.length === 0) return null;
+  const [first, ...rest] = items;
+  return (
+    <View>
+      {!isFirst && <View style={s.sectionGap} />}
+      <View wrap={false}>
+        <Text style={s.sectionHeader}>{title}</Text>
+        <ItemBlock item={first} />
+      </View>
+      {rest.map((item, i) => (
+        <ItemBlock key={i} item={item} />
+      ))}
+    </View>
+  );
 }
 
 export function DailyMenuPDFDocument({ menu }: { menu: DailyMenuData }) {
-  const formatted = new Date(menu.date + "T12:00:00").toLocaleDateString("cs-CZ", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const formatted = new Date(menu.date + "T12:00:00").toLocaleDateString(
+    "cs-CZ",
+    {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }
+  );
+
+  // Build the section list in display order, skipping empty ones. The first
+  // present section gets no top spacer; the rest each get a small gap above.
+  const builtSections: Array<{ title: string; items: ItemFields[] }> = [];
+  if (menu.soup) {
+    builtSections.push({
+      title: "Polévka",
+      items: [
+        {
+          name: menu.soup,
+          description: menu.soupDescription,
+          allergens: menu.soupAllergens,
+          price: menu.soupPrice,
+        },
+      ],
+    });
+  }
+  if (menu.items.length > 0) {
+    builtSections.push({ title: "Hlavní chod", items: menu.items });
+  }
+  if (menu.dessert && typeof menu.dessertPrice === "number") {
+    builtSections.push({
+      title: "Dezert",
+      items: [
+        {
+          name: menu.dessert,
+          description: menu.dessertDescription,
+          allergens: menu.dessertAllergens,
+          price: menu.dessertPrice,
+        },
+      ],
+    });
+  }
+  if (menu.drinks && menu.drinks.length > 0) {
+    builtSections.push({ title: "Nápoje", items: menu.drinks });
+  }
 
   return (
-    <Document title={`Denní menu — ${formatted}`} author="U Blanických rytířů">
+    <Document
+      title={`Denní menu — ${formatted}`}
+      author="Restaurace Adéla"
+    >
       <Page size="A4" style={s.page}>
-        <View style={s.frame}>
-          {/* Corner ornaments */}
-          <CornerOrnament position="tl" />
-          <CornerOrnament position="tr" />
-          <CornerOrnament position="bl" />
-          <CornerOrnament position="br" />
+        {/* Frames are `fixed` so they repeat on every page at the same coords
+            instead of being part of the content flow (which would slice them
+            at each page break). */}
+        <View fixed style={s.pageFrameOuter} />
+        <View fixed style={s.pageFrameInner} />
 
-          {/* Date */}
-          <Text style={s.dateLine}>Denní nabídka — {formatted}</Text>
+        <Text style={s.dateLine}>Denní nabídka — {formatted}</Text>
 
-          {/* Soup */}
-          {menu.soup && (
-            <View>
-              <Text style={s.sectionHeader}>Polévka</Text>
-              <View style={s.sectionRule} />
-              <Text style={s.itemName}>{menu.soup}</Text>
-              <Text style={s.itemDesc}>
-                {formatDescWithAllergens(menu.soupDescription, menu.soupAllergens)}
-              </Text>
-              <PriceLine price={menu.soupPrice} />
-            </View>
-          )}
+        {builtSections.map((sec, i) => (
+          <Section
+            key={sec.title}
+            title={sec.title}
+            items={sec.items}
+            isFirst={i === 0}
+          />
+        ))}
 
-          {/* Main Courses */}
-          {menu.items.length > 0 && (
-            <View>
-              <View style={s.sectionSpacer} />
-              <Text style={s.sectionHeader}>Hlavní chod</Text>
-              <View style={s.sectionRule} />
-              {menu.items.map((item, i) => (
-                <View key={i}>
-                  <Text style={s.itemName}>{item.name}</Text>
-                  <Text style={s.itemDesc}>
-                    {formatDescWithAllergens(item.description, item.allergens)}
-                  </Text>
-                  {item.isVegetarian && <Text style={s.veg}>(V)</Text>}
-                  <PriceLine price={item.price} />
-                </View>
-              ))}
-            </View>
-          )}
-
-          {/* Dessert */}
-          {menu.dessert && (
-            <View>
-              <View style={s.sectionSpacer} />
-              <Text style={s.sectionHeader}>Dezert</Text>
-              <View style={s.sectionRule} />
-              <Text style={s.itemName}>{menu.dessert}</Text>
-              <Text style={s.itemDesc}>
-                {formatDescWithAllergens(menu.dessertDescription, menu.dessertAllergens)}
-              </Text>
-              {menu.dessertPrice && <PriceLine price={menu.dessertPrice} />}
-            </View>
-          )}
-
-          {/* Drinks */}
-          {menu.drinks && menu.drinks.length > 0 && (
-            <View>
-              <View style={s.sectionSpacer} />
-              <Text style={s.sectionHeader}>Nápoje</Text>
-              <View style={s.sectionRule} />
-              {menu.drinks.map((drink, i) => (
-                <View key={i}>
-                  <Text style={s.itemName}>{drink.name}</Text>
-                  <Text style={s.itemDesc}>
-                    {formatDescWithAllergens(drink.description, drink.allergens)}
-                  </Text>
-                  <PriceLine price={drink.price} />
-                </View>
-              ))}
-            </View>
-          )}
-
-          {/* Footer */}
-          <View style={s.footerWrap}>
-            <Text style={s.footerText}>
-              1 — obiloviny, 2 — korýši, 3 — vejce, 4 — ryby, 5 — arašídy, 6 — sója, 7 — mléko, 8 — skořápkové plody, 9 — celer, 10 — hořčice, 11 — sezam, 12 — oxid siřičitý, 13 — vlčí bob, 14 — měkkýši
-            </Text>
-            <Text style={s.footerSmall}>(V) — vegetariánské</Text>
-            <Text style={s.footerSmall}>Informujte nás prosím o případných alergiích.</Text>
-            <BottomOrnament />
-          </View>
+        {/* Footer — allergen reference and disclaimer */}
+        <View style={s.footerWrap}>
+          <Text style={s.footerText}>
+            1 — obiloviny · 2 — korýši · 3 — vejce · 4 — ryby · 5 — arašídy · 6 — sója · 7 — mléko · 8 — skořápkové plody · 9 — celer · 10 — hořčice · 11 — sezam · 12 — oxid siřičitý · 13 — vlčí bob · 14 — měkkýši
+          </Text>
+          <Text style={s.footerText}>(V) — vegetariánské</Text>
+          <Text style={s.footerText}>
+            Informujte nás prosím o případných alergiích.
+          </Text>
         </View>
       </Page>
     </Document>

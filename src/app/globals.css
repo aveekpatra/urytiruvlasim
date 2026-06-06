@@ -23,7 +23,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-serif: var(--font-cinzel);
 }
 
 /* Base styles */
@@ -42,7 +42,7 @@ body {
 
 /* Elegant serif headings */
 h1, h2, h3, h4 {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-cinzel), Georgia, serif;
   font-weight: 400;
   letter-spacing: 0.02em;
 }
@@ -91,7 +91,7 @@ h1, h2, h3, h4 {
 
 /* Utility classes for elegant text */
 .font-serif {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-cinzel), Georgia, serif;
 }
 
 .tracking-luxury {

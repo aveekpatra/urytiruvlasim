@@ -155,7 +155,7 @@ export default function SvatbyPage() {
             </span>
           </FadeIn>
           <FadeIn delay={0.4}>
-            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl italic mb-6">
+            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-6">
               Svatby & Oslavy
             </h1>
           </FadeIn>
@@ -393,7 +393,7 @@ export default function SvatbyPage() {
           <span className="text-[var(--color-gold)] text-[10px] tracking-[0.4em] uppercase mb-6 block">
             Máte zájem?
           </span>
-          <h2 className="font-serif text-white text-3xl sm:text-4xl lg:text-5xl italic mb-6">
+          <h2 className="font-serif text-white text-3xl sm:text-4xl lg:text-5xl mb-6">
             Domluvte si nezávaznou schůzku
           </h2>
           <div className="w-16 h-px bg-[var(--color-gold)] mx-auto mb-8" />

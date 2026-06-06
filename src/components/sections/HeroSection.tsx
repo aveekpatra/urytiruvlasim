@@ -31,7 +31,7 @@ export function HeroSection() {
             </p>
           </FadeIn>
           <FadeIn delay={0.4}>
-            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl italic mb-8">
+            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-8">
               Kulinářský zážitek
             </h1>
           </FadeIn>

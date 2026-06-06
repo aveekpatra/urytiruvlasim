@@ -59,111 +59,91 @@ export const metadata: Metadata = {
   },
 };
 
-/* ── Decorative corner ornament ──────────────────────────────────── */
-
-function CornerOrnament({ className }: { className: string }) {
-  return (
-    <svg
-      className={`absolute w-8 h-8 sm:w-10 sm:h-10 text-[var(--color-charcoal)] ${className}`}
-      viewBox="0 0 40 40"
-      fill="currentColor"
-    >
-      <path d="M4 2 L4 14 L2 14 L2 2 Z" />
-      <path d="M2 2 L14 2 L14 4 L2 4 Z" />
-      <path d="M6 6 C6 6 10 6 12 8 C14 10 14 14 14 14 L12 14 C12 14 12 11 10.5 9.5 C9 8 6 8 6 8 Z" />
-      <path d="M6 6 C6 6 6 10 8 12 C10 14 14 14 14 14 L14 12 C14 12 11 12 9.5 10.5 C8 9 8 6 8 6 Z" />
-      <path
-        d="M8 3 C8 1 10 0 10 0 C10 0 12 1 12 3 C12 5 10 5.5 10 5.5 C10 5.5 8 5 8 3 Z"
-        opacity="0.9"
-      />
-      <path
-        d="M3 8 C1 8 0 10 0 10 C0 10 1 12 3 12 C5 12 5.5 10 5.5 10 C5.5 10 5 8 3 8 Z"
-        opacity="0.9"
-      />
-    </svg>
-  );
-}
-
-/* ── Reusable sub-components ─────────────────────────────────────── */
+/* ── Styling matches the PDF menu (Cinzel · charcoal · centered ─────
+   · double border · "—— 295 Kč ——" price ornament).
+   No SVG corner decorations, no cream tint, no shadow.            ── */
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-center mt-14 mb-6 first:mt-0">
-      <h3 className="font-serif text-2xl sm:text-3xl font-normal tracking-wider uppercase text-[var(--color-charcoal)]">
+    <div className="text-center mt-16 mb-10 first:mt-0">
+      <h3 className="font-serif text-2xl sm:text-3xl font-bold uppercase tracking-[0.25em] text-[var(--color-charcoal)]">
         {children}
       </h3>
-      <div className="w-48 h-px bg-[var(--color-stone)] mx-auto mt-2" />
     </div>
   );
 }
 
 function SubTitle({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-center text-[10px] tracking-[0.2em] uppercase text-[var(--color-text-muted)] mt-6 mb-3">
+    <p className="text-center font-serif text-xs sm:text-sm tracking-[0.25em] uppercase text-[var(--color-charcoal)] mt-8 mb-5">
       {children}
     </p>
   );
 }
 
+function PriceLine({ price }: { price: number }) {
+  return (
+    <div className="flex items-center justify-center gap-3 mt-3">
+      <div className="w-12 sm:w-14 h-px bg-[var(--color-charcoal)]" />
+      <span className="font-serif text-base sm:text-lg font-bold tracking-wider text-[var(--color-charcoal)]">
+        {price} Kč
+      </span>
+      <div className="w-12 sm:w-14 h-px bg-[var(--color-charcoal)]" />
+    </div>
+  );
+}
+
 function FoodItem({ item }: { item: FullMenuItem }) {
   return (
-    <div className="text-center mb-5">
-      <h4 className="font-serif text-base sm:text-lg font-bold uppercase tracking-wide text-[var(--color-charcoal)]">
+    <div className="text-center mb-9">
+      <h4 className="font-serif text-base sm:text-lg uppercase tracking-[0.15em] text-[var(--color-charcoal)] leading-snug">
         {item.name}
         {item.weight && (
-          <span className="text-[10px] sm:text-xs font-normal tracking-normal lowercase text-[var(--color-text-muted)] ml-2">
+          <span className="text-xs sm:text-sm tracking-normal lowercase text-[var(--color-charcoal)] ml-2">
             {item.weight}
           </span>
         )}
       </h4>
       {item.description && (
-        <p className="text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted)] mt-1 leading-relaxed">
+        <p className="font-serif text-sm tracking-wide text-[var(--color-charcoal)] mt-2.5 leading-relaxed">
           {item.description}
-          {item.allergens && (
-            <span className="ml-1">({item.allergens})</span>
-          )}
+          {item.allergens && <span className="ml-1">({item.allergens})</span>}
         </p>
       )}
       {!item.description && item.allergens && (
-        <p className="text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted)] mt-1">
+        <p className="font-serif text-sm tracking-wide text-[var(--color-charcoal)] mt-2">
           ({item.allergens})
         </p>
       )}
       {item.isVegetarian && (
-        <p className="text-[10px] tracking-[0.1em] uppercase text-green-700 mt-0.5">
+        <p className="font-serif text-xs tracking-wide uppercase text-[var(--color-charcoal)] mt-2 font-bold">
           (V)
         </p>
       )}
-      <div className="flex items-center justify-center gap-3 mt-2">
-        <div className="w-14 h-px bg-[var(--color-charcoal)]/40" />
-        <span className="font-serif text-sm font-bold text-[var(--color-charcoal)] tracking-wide">
-          {item.price} Kč
-        </span>
-        <div className="w-14 h-px bg-[var(--color-charcoal)]/40" />
-      </div>
+      <PriceLine price={item.price} />
     </div>
   );
 }
 
 function DrinkRow({ item }: { item: DrinkItem }) {
   return (
-    <div className="flex items-baseline justify-between gap-2 py-1.5 border-b border-[var(--color-stone)]/60 last:border-b-0">
+    <div className="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
       <div className="flex-1 min-w-0">
-        <span className="font-serif text-sm sm:text-[15px] text-[var(--color-charcoal)]">
+        <span className="font-serif text-sm sm:text-base uppercase tracking-wide text-[var(--color-charcoal)]">
           {item.name}
         </span>
         {item.volume && (
-          <span className="text-[10px] sm:text-[11px] text-[var(--color-text-muted)] ml-1.5">
+          <span className="font-serif text-xs sm:text-sm tracking-wide text-[var(--color-charcoal)] ml-2">
             {item.volume}
           </span>
         )}
         {item.note && (
-          <span className="block text-[9px] sm:text-[10px] tracking-[0.1em] text-[var(--color-text-muted)] mt-0.5 leading-relaxed">
+          <span className="block font-serif text-xs sm:text-sm tracking-wide text-[var(--color-charcoal)] mt-1 leading-relaxed">
             {item.note}
           </span>
         )}
       </div>
-      <span className="font-serif text-sm font-bold text-[var(--color-charcoal)] whitespace-nowrap">
+      <span className="font-serif text-sm sm:text-base font-bold tracking-wider text-[var(--color-charcoal)] whitespace-nowrap">
         {item.price} Kč
       </span>
     </div>
@@ -172,11 +152,11 @@ function DrinkRow({ item }: { item: DrinkItem }) {
 
 function SideRow({ item }: { item: SideItem }) {
   return (
-    <div className="flex items-baseline justify-between gap-2 py-1.5 border-b border-[var(--color-stone)]/60 last:border-b-0">
-      <span className="font-serif text-sm sm:text-[15px] text-[var(--color-charcoal)]">
+    <div className="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
+      <span className="font-serif text-sm sm:text-base uppercase tracking-wide text-[var(--color-charcoal)]">
         {item.name}
       </span>
-      <span className="font-serif text-sm font-bold text-[var(--color-charcoal)] whitespace-nowrap">
+      <span className="font-serif text-sm sm:text-base font-bold tracking-wider text-[var(--color-charcoal)] whitespace-nowrap">
         {item.price} Kč
       </span>
     </div>
@@ -185,26 +165,28 @@ function SideRow({ item }: { item: SideItem }) {
 
 function WineRow({ wine }: { wine: WineItem }) {
   return (
-    <div className="flex items-baseline justify-between gap-2 py-2 border-b border-[var(--color-stone)]/60 last:border-b-0">
+    <div className="flex items-baseline justify-between gap-4 py-4 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
       <div className="flex-1 min-w-0">
-        <span className="font-serif text-sm sm:text-[15px] text-[var(--color-charcoal)]">
+        <span className="font-serif text-sm sm:text-base uppercase tracking-wide text-[var(--color-charcoal)]">
           {wine.name}
         </span>
-        <span className="block text-[9px] sm:text-[10px] tracking-[0.1em] text-[var(--color-text-muted)] mt-0.5 leading-relaxed">
+        <span className="block font-serif text-xs sm:text-sm tracking-wide text-[var(--color-charcoal)] mt-1 leading-relaxed">
           {wine.classification}
         </span>
-        <span className="text-[9px] sm:text-[10px] tracking-[0.1em] italic text-[var(--color-text-muted)]">
+        <span className="font-serif text-xs sm:text-sm tracking-wide text-[var(--color-charcoal)]">
           {wine.taste}
         </span>
       </div>
-      <span className="font-serif text-sm font-bold text-[var(--color-charcoal)] whitespace-nowrap">
+      <span className="font-serif text-sm sm:text-base font-bold tracking-wider text-[var(--color-charcoal)] whitespace-nowrap">
         {wine.price} Kč
       </span>
     </div>
   );
 }
 
-/* ── Ornamental card wrapper ─────────────────────────────────────── */
+/* ── Card wrapper: simple double border like the PDF, no ornaments.
+   Generous padding because this is read on screens, not folded as
+   a paper menu — comfort and breathability over print density.   ── */
 
 function MenuCard({
   children,
@@ -217,13 +199,9 @@ function MenuCard({
     <FadeIn>
       <div
         id={id}
-        className="bg-[#FFFEF9] p-2 sm:p-3 border border-[var(--color-charcoal)]/20 shadow-[0_4px_20px_rgba(0,0,0,0.08)] relative"
+        className="bg-white p-2 sm:p-3 border border-[var(--color-charcoal)]"
       >
-        <CornerOrnament className="top-1 left-1 sm:top-1.5 sm:left-1.5" />
-        <CornerOrnament className="top-1 right-1 sm:top-1.5 sm:right-1.5 -scale-x-100" />
-        <CornerOrnament className="bottom-1 left-1 sm:bottom-1.5 sm:left-1.5 -scale-y-100" />
-        <CornerOrnament className="bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 -scale-x-100 -scale-y-100" />
-        <div className="border border-[var(--color-charcoal)]/15 px-6 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+        <div className="border border-[var(--color-charcoal)] px-6 py-14 sm:px-12 sm:py-20 lg:px-20 lg:py-24">
           {children}
         </div>
       </div>
@@ -281,7 +259,7 @@ export default function MenuPage() {
             </span>
           </FadeIn>
           <FadeIn delay={0.4}>
-            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl italic mb-6">
+            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               Menu
             </h1>
           </FadeIn>
@@ -416,21 +394,21 @@ export default function MenuPage() {
           {/* Allergens & notes */}
           <FadeIn>
             <div className="text-center space-y-3 max-w-lg mx-auto">
-              <p className="text-[9px] sm:text-[10px] tracking-[0.15em] text-[var(--color-text-muted)] leading-relaxed">
+              <p className="font-serif text-[10px] sm:text-[11px] tracking-wide text-[var(--color-charcoal)] leading-relaxed">
                 {ALLERGEN_LIST}
               </p>
-              <p className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-[var(--color-text-muted)]">
+              <p className="font-serif text-[10px] sm:text-[11px] tracking-wide uppercase text-[var(--color-charcoal)]">
                 (v) — vegetariánské
               </p>
               {MENU_NOTES.map((note) => (
                 <p
                   key={note}
-                  className="text-[9px] sm:text-[10px] tracking-[0.15em] text-[var(--color-text-muted)]"
+                  className="font-serif text-[10px] sm:text-[11px] tracking-wide text-[var(--color-charcoal)]"
                 >
                   {note}
                 </p>
               ))}
-              <p className="text-[9px] sm:text-[10px] tracking-[0.15em] text-[var(--color-text-muted)]">
+              <p className="font-serif text-[10px] sm:text-[11px] tracking-wide text-[var(--color-charcoal)]">
                 Informujte nás prosím o případných alergiích.
               </p>
             </div>

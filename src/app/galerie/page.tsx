@@ -104,7 +104,7 @@ export default function GaleriePage() {
             </span>
           </FadeIn>
           <FadeIn delay={0.4}>
-            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl italic mb-6">
+            <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               Galerie
             </h1>
           </FadeIn>
@@ -247,7 +247,7 @@ export default function GaleriePage() {
       <section className="bg-[var(--color-charcoal)] py-20 lg:py-24">
         <FadeIn>
         <div className="max-w-3xl mx-auto px-6 lg:px-12 text-center">
-          <h2 className="font-serif text-white text-3xl sm:text-4xl italic mb-6">
+          <h2 className="font-serif text-white text-3xl sm:text-4xl mb-6">
             Přijďte se podívat osobně
           </h2>
           <div className="w-12 h-px bg-[var(--color-gold)] mx-auto mb-8" />
