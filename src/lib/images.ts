@@ -4,7 +4,7 @@
  */
 
 const CDN_BASE =
-  "https://raw.githubusercontent.com/aveekpatra/urytiruvlasim-cz/master/public";
+  "https://raw.githubusercontent.com/aveekpatra/urytiruvlasim/master/public";
 
 /** Prefix any /public path with GitHub raw CDN */
 export function cdn(path: string): string {
