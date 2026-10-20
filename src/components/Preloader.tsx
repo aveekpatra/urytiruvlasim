@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { markSiteReady } from "@/components/motion";
 
 /* First-visit loading screen, after abu-tailwind.vercel.app: a ring spins
-   around the castle while the page and every image and video on screen
-   load. Then the logo fades out and the cover slides down. Capped so a slow
+   around the castle while the page, its fonts and every image and video on
+   screen load. Then the logo fades out and the cover slides down. Capped so a slow
    connection never holds the page; globals.css hides it if scripts fail. */
 const MAX_WAIT = 6000;
 const FADE_MS = 250;
@@ -42,6 +42,7 @@ export function Preloader() {
   const [stage, setStage] = useState<"loading" | "leaving" | "gone">(
     "loading"
   );
+  const [fontsReady, setFontsReady] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -53,7 +54,15 @@ export function Preloader() {
       setTimeout(resolve, MAX_WAIT)
     );
 
-    Promise.race([pageLoaded.then(mediaOnScreen), timeout]).then(() => {
+    document.fonts.ready.then(() => {
+      if (!cancelled) setFontsReady(true);
+    });
+    const contentReady = Promise.all([
+      pageLoaded.then(mediaOnScreen),
+      document.fonts.ready,
+    ]);
+
+    Promise.race([contentReady, timeout]).then(() => {
       if (cancelled) return;
       setStage("leaving");
       setTimeout(markSiteReady, FADE_MS);
@@ -88,7 +97,13 @@ export function Preloader() {
           <div className="absolute inset-0 rounded-full border-[3px] border-white/90 border-t-[var(--color-gold)] animate-spin" />
           <img src={cdn("/Logo.svg")} alt="" className="h-14 w-auto" />
         </div>
-        <p className="font-serif text-white uppercase text-center text-[calc(1.25rem+2vw)] leading-none tracking-[0.2em] pl-[0.2em]">
+        {/* Hidden until Cinzel is in, so it never shows in a fallback font */}
+        <p
+          className={cn(
+            "font-serif text-white uppercase text-center text-[calc(1.25rem+2vw)] leading-none tracking-[0.2em] pl-[0.2em] transition-opacity duration-500",
+            fontsReady ? "opacity-100" : "opacity-0"
+          )}
+        >
           U Blanických rytířů
         </p>
       </div>
