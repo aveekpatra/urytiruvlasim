@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { RESTAURANT_INFO } from "@/lib/constants";
-import { FadeIn, SlideIn, AnimatedImage, StaggerContainer, StaggerItem } from "@/components/motion";
+import { Reveal, AnimatedImage } from "@/components/motion";
 import { cdn } from "@/lib/images";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Facebook01Icon, InstagramIcon, Location01Icon, CallIcon, Mail01Icon, Clock01Icon, MapsLocation01Icon } from "@hugeicons/core-free-icons";
@@ -48,19 +48,19 @@ export default function KontaktPage() {
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
-          <FadeIn delay={0.2}>
+          <Reveal delay={0.15}>
             <span className="text-white/60 text-[10px] tracking-[0.4em] uppercase mb-6 block">
               Zámecká restaurace
             </span>
-          </FadeIn>
-          <FadeIn delay={0.4}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               Kontakt
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.6}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <div className="w-16 h-px bg-[var(--color-gold)]" />
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
 
@@ -69,7 +69,7 @@ export default function KontaktPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             {/* Left — Contact Details */}
-            <SlideIn direction="left">
+            <Reveal>
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-dark)] mb-4 block">
                 Kde nás najdete
               </span>
@@ -152,10 +152,10 @@ export default function KontaktPage() {
                   </div>
                 </div>
               </div>
-            </SlideIn>
+            </Reveal>
 
             {/* Right — Map */}
-            <SlideIn direction="right">
+            <Reveal>
               <div className="aspect-square lg:aspect-auto lg:h-full min-h-[400px] bg-[var(--color-stone)]">
                 <iframe
                   src={`https://maps.google.com/maps?q=${RESTAURANT_INFO.coordinates.lat},${RESTAURANT_INFO.coordinates.lng}&z=16&output=embed&hl=cs`}
@@ -168,7 +168,7 @@ export default function KontaktPage() {
                   title="Mapa — U Blanických rytířů, Zámek 1, Vlašim"
                 />
               </div>
-            </SlideIn>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -176,9 +176,9 @@ export default function KontaktPage() {
       {/* Opening Hours + Parking */}
       <section className="bg-[var(--color-ivory)] py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
             {/* Opening Hours */}
-            <StaggerItem>
+            <Reveal>
               <h3 className="text-[11px] tracking-[0.2em] uppercase text-[var(--color-gold-dark)] font-medium mb-6 flex items-center gap-2">
                 <HugeiconsIcon icon={Clock01Icon} size={14} strokeWidth={1.5} />
                 Otevírací doba — Restaurace
@@ -204,10 +204,10 @@ export default function KontaktPage() {
                   </div>
                 ))}
               </div>
-            </StaggerItem>
+            </Reveal>
 
             {/* Getting There */}
-            <StaggerItem>
+            <Reveal>
               <h3 className="text-[11px] tracking-[0.2em] uppercase text-[var(--color-gold-dark)] font-medium mb-6 flex items-center gap-2">
                 <HugeiconsIcon icon={MapsLocation01Icon} size={14} strokeWidth={1.5} />
                 Jak se k nám dostanete
@@ -217,14 +217,14 @@ export default function KontaktPage() {
                 v centru města Vlašim. Z Prahy cca 70 km po dálnici D1
                 a dále po silnici 3. třídy směr Vlašim.
               </p>
-            </StaggerItem>
-          </StaggerContainer>
+            </Reveal>
+          </div>
         </div>
       </section>
 
       {/* Reservation CTA */}
       <section className="bg-[var(--color-charcoal)] py-20 lg:py-24">
-        <FadeIn>
+        <Reveal>
         <div className="max-w-3xl mx-auto px-6 lg:px-12 text-center">
           <span className="text-[var(--color-gold)] text-[10px] tracking-[0.4em] uppercase mb-6 block">
             Rezervace
@@ -254,7 +254,7 @@ export default function KontaktPage() {
             </Link>
           </div>
         </div>
-        </FadeIn>
+        </Reveal>
       </section>
 
       <Footer />

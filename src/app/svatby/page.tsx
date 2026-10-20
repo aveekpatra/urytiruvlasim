@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { IMAGES, cdn } from "@/lib/images";
-import { FadeIn, SlideIn, StaggerContainer, StaggerItem, AnimatedImage } from "@/components/motion";
+import { Reveal, AnimatedImage } from "@/components/motion";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { CallIcon, Mail01Icon } from "@hugeicons/core-free-icons";
 
@@ -149,24 +149,24 @@ export default function SvatbyPage() {
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
-          <FadeIn delay={0.2}>
+          <Reveal delay={0.15}>
             <span className="text-white/60 text-[10px] tracking-[0.4em] uppercase mb-6 block">
               Zámecká restaurace
             </span>
-          </FadeIn>
-          <FadeIn delay={0.4}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-6">
               Svatby & Oslavy
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.6}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <div className="w-16 h-px bg-[var(--color-gold)] mb-6" />
-          </FadeIn>
-          <FadeIn delay={0.8}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <p className="text-white/70 text-sm sm:text-base max-w-lg tracking-wide">
               Pronájem prostor pro vaši akci v historickém zámku
             </p>
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
 
@@ -175,7 +175,7 @@ export default function SvatbyPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* Text */}
-            <SlideIn direction="left">
+            <Reveal>
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-dark)] mb-4 block">
                 Oslavy na zámku
               </span>
@@ -196,10 +196,10 @@ export default function SvatbyPage() {
                 Dekorace i menu připravíme přesně podle vašich přání.
                 Stačí nás kontaktovat a domluvit si nezávaznou schůzku.
               </p>
-            </SlideIn>
+            </Reveal>
 
             {/* Image with gold frame */}
-            <SlideIn direction="right">
+            <Reveal>
               <div className="relative">
                 <div className="absolute -inset-4 border border-[var(--color-gold)]/20" />
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -211,7 +211,7 @@ export default function SvatbyPage() {
                   />
                 </div>
               </div>
-            </SlideIn>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -220,7 +220,7 @@ export default function SvatbyPage() {
       <section className="bg-[var(--color-ivory)] py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Section Header */}
-          <FadeIn>
+          <Reveal>
             <div className="text-center mb-16 lg:mb-20">
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-dark)] mb-4 block">
                 Příležitosti
@@ -230,12 +230,12 @@ export default function SvatbyPage() {
               </h2>
               <div className="w-12 h-px bg-[var(--color-gold)] mx-auto" />
             </div>
-          </FadeIn>
+          </Reveal>
 
           {/* Event Types Grid */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
             {eventTypes.map((event, index) => (
-              <StaggerItem key={index}>
+              <Reveal key={index}>
                 <div className="bg-white border border-[var(--color-stone)]/40 p-8 hover:shadow-lg transition-shadow duration-500">
                   <h3 className="font-serif text-xl text-[var(--color-charcoal)] mb-3">
                     {event.title}
@@ -245,9 +245,9 @@ export default function SvatbyPage() {
                     {event.description}
                   </p>
                 </div>
-              </StaggerItem>
+              </Reveal>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -255,7 +255,7 @@ export default function SvatbyPage() {
       <section className="bg-[var(--color-cream)] py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Section Header */}
-          <FadeIn>
+          <Reveal>
             <div className="text-center mb-16 lg:mb-20">
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-dark)] mb-4 block">
                 Prostory k pronájmu
@@ -265,12 +265,12 @@ export default function SvatbyPage() {
               </h2>
               <div className="w-12 h-px bg-[var(--color-gold)] mx-auto" />
             </div>
-          </FadeIn>
+          </Reveal>
 
           {/* Space Cards */}
-          <StaggerContainer className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {spaces.map((space, index) => (
-              <StaggerItem key={index}>
+              <Reveal key={index}>
                 <div className="group bg-white border border-[var(--color-stone)]/40 overflow-hidden hover:shadow-lg transition-shadow duration-500">
                   {/* Image */}
                   <div className="relative aspect-[4/3] overflow-hidden">
@@ -297,9 +297,9 @@ export default function SvatbyPage() {
                   </p>
                 </div>
                 </div>
-              </StaggerItem>
+              </Reveal>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -307,7 +307,7 @@ export default function SvatbyPage() {
       <section className="bg-[var(--color-charcoal)] text-white py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Section Header */}
-          <FadeIn>
+          <Reveal>
             <div className="text-center mb-16 lg:mb-20">
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4 block">
                 Co zajistíme
@@ -317,12 +317,12 @@ export default function SvatbyPage() {
               </h2>
               <div className="w-12 h-px bg-[var(--color-gold)] mx-auto" />
             </div>
-          </FadeIn>
+          </Reveal>
 
           {/* Features Grid */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {features.map((feature, index) => (
-              <StaggerItem key={index}>
+              <Reveal key={index}>
                 <div className="group">
                   <div className="flex items-start gap-4">
                     <span className="w-8 h-px bg-[var(--color-gold)] mt-3 shrink-0 group-hover:w-12 transition-all duration-300" />
@@ -336,9 +336,9 @@ export default function SvatbyPage() {
                     </div>
                   </div>
                 </div>
-              </StaggerItem>
+              </Reveal>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -346,7 +346,7 @@ export default function SvatbyPage() {
       <section className="bg-[var(--color-ivory)] py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Section Header */}
-          <FadeIn>
+          <Reveal>
             <div className="text-center mb-16 lg:mb-20">
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-dark)] mb-4 block">
                 Inspirace
@@ -356,12 +356,12 @@ export default function SvatbyPage() {
               </h2>
               <div className="w-12 h-px bg-[var(--color-gold)] mx-auto" />
             </div>
-          </FadeIn>
+          </Reveal>
 
           {/* Gallery Grid */}
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {galleryImages.map((img, index) => (
-              <StaggerItem
+              <Reveal
                 key={index}
                 className="group relative aspect-[4/3] overflow-hidden"
               >
@@ -372,9 +372,9 @@ export default function SvatbyPage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-              </StaggerItem>
+              </Reveal>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -388,7 +388,7 @@ export default function SvatbyPage() {
         />
         <div className="absolute inset-0 bg-black/65" />
 
-        <FadeIn>
+        <Reveal>
         <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-12 text-center">
           <span className="text-[var(--color-gold)] text-[10px] tracking-[0.4em] uppercase mb-6 block">
             Máte zájem?
@@ -423,7 +423,7 @@ export default function SvatbyPage() {
             ublanickychrytiru@seznam.cz
           </p>
         </div>
-        </FadeIn>
+        </Reveal>
       </section>
 
       <Footer />

@@ -95,9 +95,9 @@ function PriceLine({ price }: { price: number }) {
   );
 }
 
-function FoodItem({ item, index }: { item: FullMenuItem; index: number }) {
+function FoodItem({ item }: { item: FullMenuItem }) {
   return (
-    <Reveal index={index} className="text-center mb-9">
+    <Reveal className="text-center mb-9">
       <h4 className="font-serif text-base sm:text-lg uppercase tracking-[0.15em] text-[var(--color-charcoal)] leading-snug">
         {item.name}
         {item.weight && (
@@ -127,9 +127,9 @@ function FoodItem({ item, index }: { item: FullMenuItem; index: number }) {
   );
 }
 
-function DrinkRow({ item, index }: { item: DrinkItem; index: number }) {
+function DrinkRow({ item }: { item: DrinkItem }) {
   return (
-    <Reveal index={index} className="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
+    <Reveal className="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
       <div className="flex-1 min-w-0">
         <span className="font-serif text-sm sm:text-base uppercase tracking-wide text-[var(--color-charcoal)]">
           {item.name}
@@ -152,9 +152,9 @@ function DrinkRow({ item, index }: { item: DrinkItem; index: number }) {
   );
 }
 
-function SideRow({ item, index }: { item: SideItem; index: number }) {
+function SideRow({ item }: { item: SideItem }) {
   return (
-    <Reveal index={index} className="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
+    <Reveal className="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
       <span className="font-serif text-sm sm:text-base uppercase tracking-wide text-[var(--color-charcoal)]">
         {item.name}
       </span>
@@ -165,9 +165,9 @@ function SideRow({ item, index }: { item: SideItem; index: number }) {
   );
 }
 
-function WineRow({ wine, index }: { wine: WineItem; index: number }) {
+function WineRow({ wine }: { wine: WineItem }) {
   return (
-    <Reveal index={index} className="flex items-baseline justify-between gap-4 py-4 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
+    <Reveal className="flex items-baseline justify-between gap-4 py-4 border-b border-[var(--color-charcoal)]/25 last:border-b-0">
       <div className="flex-1 min-w-0">
         <span className="font-serif text-sm sm:text-base uppercase tracking-wide text-[var(--color-charcoal)]">
           {wine.name}
@@ -258,12 +258,12 @@ export default function MenuPage() {
               Zámecká restaurace
             </span>
           </Reveal>
-          <Reveal delay={0.15} index={1}>
+          <Reveal delay={0.15}>
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               Menu
             </h1>
           </Reveal>
-          <Reveal delay={0.15} index={2}>
+          <Reveal delay={0.15}>
             <div className="w-16 h-px bg-[var(--color-gold)]" />
           </Reveal>
         </div>
@@ -298,64 +298,64 @@ export default function MenuPage() {
           {/* Předkrmy */}
           <MenuCard>
             <SectionTitle>Předkrmy</SectionTitle>
-            {PREDKRMY.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {PREDKRMY.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Polévky */}
           <MenuCard>
             <SectionTitle>Polévky</SectionTitle>
-            {POLEVKY.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {POLEVKY.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Saláty */}
           <MenuCard>
             <SectionTitle>Saláty</SectionTitle>
-            {SALATY.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {SALATY.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Hovězí maso */}
           <MenuCard>
             <SectionTitle>Hovězí maso</SectionTitle>
-            {HOVEZI_MASO.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {HOVEZI_MASO.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Vepřové maso */}
           <MenuCard>
             <SectionTitle>Vepřové maso</SectionTitle>
-            {VEPROVE_MASO.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {VEPROVE_MASO.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Drůbeží maso a ryby */}
           <MenuCard>
             <SectionTitle>Drůbeží maso a ryby</SectionTitle>
-            {DRUBEZI_MASO_A_RYBY.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {DRUBEZI_MASO_A_RYBY.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Vegetariánská jídla */}
           <MenuCard>
             <SectionTitle>Vegetariánská jídla</SectionTitle>
-            {VEGETARIANSKA_JIDLA.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {VEGETARIANSKA_JIDLA.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
           {/* Dětská jídla */}
           <MenuCard>
             <SectionTitle>Dětská jídla</SectionTitle>
-            {DETSKA_JIDLA.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {DETSKA_JIDLA.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
@@ -363,22 +363,22 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Přílohy</SectionTitle>
             <div className="max-w-md mx-auto">
-              {PRILOHY.map((item, i) => (
-                <SideRow key={item.name} item={item} index={i} />
+              {PRILOHY.map((item) => (
+                <SideRow key={item.name} item={item} />
               ))}
             </div>
 
             <SectionTitle>Omáčky</SectionTitle>
             <SubTitle>Studené</SubTitle>
             <div className="max-w-md mx-auto">
-              {OMACKY_STUDENE.map((item, i) => (
-                <SideRow key={item.name} item={item} index={i} />
+              {OMACKY_STUDENE.map((item) => (
+                <SideRow key={item.name} item={item} />
               ))}
             </div>
             <SubTitle>Teplé</SubTitle>
             <div className="max-w-md mx-auto">
-              {OMACKY_TEPLE.map((item, i) => (
-                <SideRow key={item.name} item={item} index={i} />
+              {OMACKY_TEPLE.map((item) => (
+                <SideRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -386,8 +386,8 @@ export default function MenuPage() {
           {/* Dezerty */}
           <MenuCard>
             <SectionTitle>Dezerty</SectionTitle>
-            {DEZERTY.map((item, i) => (
-              <FoodItem key={item.name} item={item} index={i + 1} />
+            {DEZERTY.map((item) => (
+              <FoodItem key={item.name} item={item} />
             ))}
           </MenuCard>
 
@@ -439,7 +439,7 @@ export default function MenuPage() {
             <SectionTitle>Nealkoholické nápoje</SectionTitle>
             <div className="max-w-md mx-auto">
               {NEALKO.map((item, i) => (
-                <DrinkRow key={`${item.name}-${item.volume}-${i}`} item={item} index={i} />
+                <DrinkRow key={`${item.name}-${item.volume}-${i}`} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -448,15 +448,15 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Nealkoholické aperitivy</SectionTitle>
             <div className="max-w-md mx-auto">
-              {NEALKO_APERITIVY.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {NEALKO_APERITIVY.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
 
             <SectionTitle>Aperitivy</SectionTitle>
             <div className="max-w-md mx-auto">
-              {APERITIVY.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {APERITIVY.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -467,13 +467,13 @@ export default function MenuPage() {
             <SubTitle>Točené</SubTitle>
             <div className="max-w-md mx-auto">
               {PIVO_TOCENE.map((item, i) => (
-                <DrinkRow key={`${item.name}-${item.volume}-${i}`} item={item} index={i} />
+                <DrinkRow key={`${item.name}-${item.volume}-${i}`} item={item} />
               ))}
             </div>
             <SubTitle>Lahvové</SubTitle>
             <div className="max-w-md mx-auto">
-              {PIVO_LAHVOVE.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {PIVO_LAHVOVE.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -482,8 +482,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Rozlévaná vína</SectionTitle>
             <div className="max-w-md mx-auto">
-              {ROZLEVANA_VINA.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {ROZLEVANA_VINA.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -492,8 +492,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Likéry</SectionTitle>
             <div className="max-w-md mx-auto">
-              {LIKERY.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {LIKERY.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -502,8 +502,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Whiskey</SectionTitle>
             <div className="max-w-md mx-auto">
-              {WHISKEY.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {WHISKEY.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -512,8 +512,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Destiláty</SectionTitle>
             <div className="max-w-md mx-auto">
-              {DESTILATY.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {DESTILATY.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -522,8 +522,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Koňaky</SectionTitle>
             <div className="max-w-md mx-auto">
-              {KONAKY.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {KONAKY.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -532,8 +532,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Míchané nápoje</SectionTitle>
             <div className="max-w-md mx-auto">
-              {MICHANE_NAPOJE.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {MICHANE_NAPOJE.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -542,8 +542,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Teplé nápoje</SectionTitle>
             <div className="max-w-md mx-auto">
-              {TEPLE_NAPOJE.map((item, i) => (
-                <DrinkRow key={item.name} item={item} index={i} />
+              {TEPLE_NAPOJE.map((item) => (
+                <DrinkRow key={item.name} item={item} />
               ))}
             </div>
           </MenuCard>
@@ -572,8 +572,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Bílá vína</SectionTitle>
             <div className="max-w-lg mx-auto">
-              {BILA_VINA.map((wine, i) => (
-                <WineRow key={wine.name} wine={wine} index={i} />
+              {BILA_VINA.map((wine) => (
+                <WineRow key={wine.name} wine={wine} />
               ))}
             </div>
           </MenuCard>
@@ -582,8 +582,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Červená vína</SectionTitle>
             <div className="max-w-lg mx-auto">
-              {CERVENA_VINA.map((wine, i) => (
-                <WineRow key={wine.name} wine={wine} index={i} />
+              {CERVENA_VINA.map((wine) => (
+                <WineRow key={wine.name} wine={wine} />
               ))}
             </div>
           </MenuCard>
@@ -592,8 +592,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Růžové víno</SectionTitle>
             <div className="max-w-lg mx-auto">
-              {RUZOVE_VINO.map((wine, i) => (
-                <WineRow key={wine.name} wine={wine} index={i} />
+              {RUZOVE_VINO.map((wine) => (
+                <WineRow key={wine.name} wine={wine} />
               ))}
             </div>
           </MenuCard>
@@ -602,8 +602,8 @@ export default function MenuPage() {
           <MenuCard>
             <SectionTitle>Šumivá vína</SectionTitle>
             <div className="max-w-lg mx-auto">
-              {SUMIVA_VINA.map((wine, i) => (
-                <WineRow key={wine.name} wine={wine} index={i} />
+              {SUMIVA_VINA.map((wine) => (
+                <WineRow key={wine.name} wine={wine} />
               ))}
             </div>
           </MenuCard>

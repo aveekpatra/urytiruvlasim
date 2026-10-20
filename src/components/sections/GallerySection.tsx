@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { IMAGES } from "@/lib/images";
-import { FadeIn, StaggerContainer, StaggerItem, AnimatedImage } from "@/components/motion";
+import { Reveal, AnimatedImage } from "@/components/motion";
 import { ImageLightbox } from "@/components/ImageLightbox";
 
 export function GallerySection() {
@@ -23,7 +23,7 @@ export function GallerySection() {
     <section id="galerie" className="py-24 lg:py-40 bg-[var(--color-ivory)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
-        <FadeIn>
+        <Reveal>
           <div className="text-center mb-16">
             <span className="text-[11px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6 block">
               Nahlédněte
@@ -33,12 +33,12 @@ export function GallerySection() {
             </h2>
             <div className="w-16 h-px bg-[var(--color-gold)] mx-auto" />
           </div>
-        </FadeIn>
+        </Reveal>
 
         {/* Gallery Grid */}
-        <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] lg:auto-rows-[250px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] lg:auto-rows-[250px]">
           {IMAGES.gallery.map((image, index) => (
-            <StaggerItem
+            <Reveal
               key={index}
               className={`relative overflow-hidden group cursor-pointer ${image.span}`}
             >
@@ -60,9 +60,9 @@ export function GallerySection() {
                   </span>
                 </div>
               </div>
-            </StaggerItem>
+            </Reveal>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
 
       <ImageLightbox

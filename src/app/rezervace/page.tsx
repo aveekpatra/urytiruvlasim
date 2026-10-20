@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { RESTAURANT_INFO } from "@/lib/constants";
-import { FadeIn, SlideIn, AnimatedImage } from "@/components/motion";
+import { Reveal, AnimatedImage } from "@/components/motion";
 import { cdn } from "@/lib/images";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Tick01Icon, CallIcon } from "@hugeicons/core-free-icons";
@@ -87,19 +87,19 @@ export default function ReservacePage() {
         <div className="absolute inset-0 bg-black/55" />
 
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
-          <FadeIn delay={0.2}>
+          <Reveal delay={0.15}>
             <span className="text-white/60 text-[10px] tracking-[0.4em] uppercase mb-6 block">
               Zámecká restaurace
             </span>
-          </FadeIn>
-          <FadeIn delay={0.4}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               Rezervace
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.6}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <div className="w-16 h-px bg-[var(--color-gold)]" />
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
 
@@ -108,7 +108,7 @@ export default function ReservacePage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-20">
             {/* Form — 2/3 width */}
-            <SlideIn direction="left" className="lg:col-span-2">
+            <Reveal className="lg:col-span-2">
               <div
                 className="bg-[#FFFEF9] px-6 py-12 sm:px-12 sm:py-16 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-[var(--color-stone)]/30"
                 style={{
@@ -347,10 +347,10 @@ export default function ReservacePage() {
                   </>
                 )}
               </div>
-            </SlideIn>
+            </Reveal>
 
             {/* Sidebar — 1/3 width */}
-            <SlideIn direction="right">
+            <Reveal>
               <div className="space-y-10">
                 {/* Opening Hours */}
                 <div>
@@ -423,7 +423,7 @@ export default function ReservacePage() {
                   </ul>
                 </div>
               </div>
-            </SlideIn>
+            </Reveal>
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { IMAGES } from "@/lib/images";
-import { SlideIn, FadeIn, AnimatedImage } from "@/components/motion";
+import { Reveal, AnimatedImage } from "@/components/motion";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Tree01Icon, CastleIcon, DrinkIcon } from "@hugeicons/core-free-icons";
 
@@ -11,7 +11,7 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Text Content */}
-          <SlideIn direction="left" className="order-2 lg:order-1">
+          <Reveal className="order-2 lg:order-1">
             <span className="text-[11px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6 block">
               O restauraci
             </span>
@@ -33,7 +33,7 @@ export function AboutSection() {
                 pokrmu — to je filozofie, která nás definuje.
               </p>
             </div>
-            <FadeIn delay={0.3}>
+            <Reveal>
               <div className="mt-12 grid grid-cols-3 gap-6 sm:gap-10">
                 <div className="text-center sm:text-left">
                   <div className="flex items-center justify-center sm:justify-start gap-2 text-[var(--color-gold)] mb-1">
@@ -63,11 +63,11 @@ export function AboutSection() {
                   </span>
                 </div>
               </div>
-            </FadeIn>
-          </SlideIn>
+            </Reveal>
+          </Reveal>
 
           {/* Image */}
-          <SlideIn direction="right" className="order-1 lg:order-2 relative">
+          <Reveal className="order-1 lg:order-2 relative">
             <div className="relative aspect-4/5 overflow-hidden">
               <AnimatedImage
                 src={IMAGES.about.interior}
@@ -79,7 +79,7 @@ export function AboutSection() {
             </div>
             {/* Decorative frame */}
             <div className="absolute -bottom-6 -right-6 w-full h-full border border-[var(--color-gold)]/30 -z-10" />
-          </SlideIn>
+          </Reveal>
         </div>
       </div>
     </section>

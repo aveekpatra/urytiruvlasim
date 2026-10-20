@@ -44,7 +44,7 @@ Theme colors: `--gold` (#B8860B), `--charcoal` (#1C1C1C), `--cream` (#FDFBF7), `
 
 ### Animation
 
-Use motion wrappers from `src/components/motion/` (FadeIn, SlideUp, SlideIn, StaggerContainer) rather than raw Framer Motion. These respect `prefers-reduced-motion`.
+Use the motion wrappers from `src/components/motion/` rather than raw Framer Motion: `Reveal` for anything that animates in on scroll (texts, images, blocks; siblings stagger themselves) and `AnimatedImage` for images. Both respect `prefers-reduced-motion`.
 
 ## Key Conventions
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { IMAGES } from "@/lib/images";
-import { SlideIn, StaggerContainer, StaggerItem, AnimatedImage } from "@/components/motion";
+import { Reveal, AnimatedImage } from "@/components/motion";
 
 const features = [
   "Pronájem restaurace pro vaši akci",
@@ -29,7 +29,7 @@ export function WeddingsSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Content */}
-          <SlideIn direction="left">
+          <Reveal>
             <span className="text-[11px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6 block">
               Svatby & Oslavy
             </span>
@@ -45,18 +45,18 @@ export function WeddingsSection() {
             </p>
 
             {/* Features */}
-            <StaggerContainer stagger={0.08}>
+            <div>
               <ul className="space-y-4 mb-12">
                 {features.map((feature, index) => (
-                  <StaggerItem key={index}>
+                  <Reveal key={index}>
                     <li className="flex items-center gap-4">
                       <span className="w-8 h-px bg-[var(--color-gold)]" />
                       <span className="text-white/80 text-sm tracking-wide">{feature}</span>
                     </li>
-                  </StaggerItem>
+                  </Reveal>
                 ))}
               </ul>
-            </StaggerContainer>
+            </div>
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -73,12 +73,12 @@ export function WeddingsSection() {
                 Více informací
               </Link>
             </div>
-          </SlideIn>
+          </Reveal>
 
           {/* Image Collage */}
-          <StaggerContainer stagger={0.15} className="hidden lg:grid grid-cols-2 gap-4">
+          <div className="hidden lg:grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <StaggerItem>
+              <Reveal>
                 <div className="relative aspect-3/4 overflow-hidden">
                   <AnimatedImage
                     src={IMAGES.wedding.gallery[0]}
@@ -87,8 +87,8 @@ export function WeddingsSection() {
                     className="object-cover"
                   />
                 </div>
-              </StaggerItem>
-              <StaggerItem>
+              </Reveal>
+              <Reveal>
                 <div className="relative aspect-square overflow-hidden">
                   <AnimatedImage
                     src={IMAGES.wedding.gallery[1]}
@@ -97,10 +97,10 @@ export function WeddingsSection() {
                     className="object-cover"
                   />
                 </div>
-              </StaggerItem>
+              </Reveal>
             </div>
             <div className="pt-12 space-y-4">
-              <StaggerItem>
+              <Reveal>
                 <div className="relative aspect-square overflow-hidden">
                   <AnimatedImage
                     src={IMAGES.wedding.gallery[2]}
@@ -109,8 +109,8 @@ export function WeddingsSection() {
                     className="object-cover"
                   />
                 </div>
-              </StaggerItem>
-              <StaggerItem>
+              </Reveal>
+              <Reveal>
                 <div className="relative aspect-3/4 overflow-hidden">
                   <AnimatedImage
                     src={IMAGES.wedding.gallery[3]}
@@ -119,9 +119,9 @@ export function WeddingsSection() {
                     className="object-cover"
                   />
                 </div>
-              </StaggerItem>
+              </Reveal>
             </div>
-          </StaggerContainer>
+          </div>
         </div>
       </div>
     </section>

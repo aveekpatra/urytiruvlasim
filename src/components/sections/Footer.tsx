@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { RESTAURANT_INFO } from "@/lib/constants";
 import { cdn } from "@/lib/images";
-import { StaggerContainer, StaggerItem } from "@/components/motion";
+import { Reveal } from "@/components/motion";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Facebook01Icon, InstagramIcon, Location01Icon, CallIcon, Mail01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
 
@@ -12,9 +12,9 @@ export function Footer() {
     <footer id="kontakt" className="bg-[var(--color-charcoal)] text-white">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
-        <StaggerContainer stagger={0.12} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand */}
-          <StaggerItem className="lg:col-span-1">
+          <Reveal className="lg:col-span-1">
             <div className="mb-6 flex items-center gap-3">
               <img
                 src={cdn("/Logo.svg")}
@@ -33,10 +33,10 @@ export function Footer() {
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               Výjimečná gastronomie v srdci vlašimského zámku.
             </p>
-          </StaggerItem>
+          </Reveal>
 
           {/* Contact */}
-          <StaggerItem>
+          <Reveal>
             <h4 className="text-[11px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-6">
               Kontakt
             </h4>
@@ -67,10 +67,10 @@ export function Footer() {
                 </a>
               </div>
             </div>
-          </StaggerItem>
+          </Reveal>
 
           {/* Hours */}
-          <StaggerItem>
+          <Reveal>
             <h4 className="text-[11px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-6 flex items-center gap-2">
               <HugeiconsIcon icon={Clock01Icon} size={14} strokeWidth={1.5} />
               Otevírací doba
@@ -83,10 +83,10 @@ export function Footer() {
                 </div>
               ))}
             </div>
-          </StaggerItem>
+          </Reveal>
 
           {/* Reservation */}
-          <StaggerItem>
+          <Reveal>
             <h4 className="text-[11px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-6">
               Rezervace
             </h4>
@@ -99,8 +99,8 @@ export function Footer() {
             >
               Zavolat nyní
             </Link>
-          </StaggerItem>
-        </StaggerContainer>
+          </Reveal>
+        </div>
       </div>
 
       {/* Bottom Bar */}

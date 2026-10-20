@@ -20,8 +20,9 @@ export function AnimatedImage({
     <Image
       {...props}
       className={cn(
-        "transition-opacity duration-[600ms] ease-out",
-        loaded ? "opacity-100" : "opacity-0",
+        // Same fade + blur and easing as Reveal, without the rise.
+        "transition-[opacity,filter] duration-[1100ms] ease-[cubic-bezier(0.33,1,0.68,1)]",
+        loaded ? "opacity-100 blur-0" : "opacity-0 blur-[10px]",
         className
       )}
       onLoad={(e) => {

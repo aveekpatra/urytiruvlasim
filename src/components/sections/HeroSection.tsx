@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { IMAGES } from "@/lib/images";
-import { FadeIn } from "@/components/motion";
+import { Reveal } from "@/components/motion";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Clock01Icon, Restaurant01Icon, Calendar03Icon } from "@hugeicons/core-free-icons";
 
@@ -25,24 +25,24 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-end pb-32 lg:pb-40 px-6">
         <div className="text-center">
-          <FadeIn delay={0.2}>
+          <Reveal delay={0.15}>
             <p className="text-white/80 text-[11px] tracking-[0.4em] uppercase mb-6">
               Zámek Vlašim
             </p>
-          </FadeIn>
-          <FadeIn delay={0.4}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <h1 className="font-serif text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-8">
               Kulinářský zážitek
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.6}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <div className="w-16 h-px bg-[var(--color-gold)] mx-auto mb-8" />
-          </FadeIn>
-          <FadeIn delay={0.8}>
+          </Reveal>
+          <Reveal delay={0.15}>
             <p className="text-white/90 text-sm tracking-[0.15em] uppercase">
               v srdci historického zámku
             </p>
-          </FadeIn>
+          </Reveal>
         </div>
       </div>
 

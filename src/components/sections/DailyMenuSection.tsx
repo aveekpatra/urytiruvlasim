@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { FadeIn } from "@/components/motion";
+import { Reveal } from "@/components/motion";
 
 function PriceLine({ price }: { price: number }) {
   return (
@@ -87,7 +87,7 @@ export function DailyMenuSection() {
     return (
       <section id="menu" className="py-24 lg:py-40 bg-[var(--color-ivory)]">
         <div className="max-w-2xl mx-auto px-6 lg:px-12">
-          <FadeIn>
+          <Reveal>
             <div className="text-center mb-12">
               <span className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-text-muted)] mb-4 block">
                 Denní nabídka
@@ -100,8 +100,8 @@ export function DailyMenuSection() {
                 Denní menu bude brzy zveřejněno.
               </p>
             </div>
-          </FadeIn>
-          <FadeIn delay={0.2}>
+          </Reveal>
+          <Reveal>
             <div className="text-center">
               <Link
                 href="/menu"
@@ -110,7 +110,7 @@ export function DailyMenuSection() {
                 Kompletní menu
               </Link>
             </div>
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
     );
@@ -129,7 +129,7 @@ export function DailyMenuSection() {
   return (
     <section id="menu" className="py-24 lg:py-40 bg-[var(--color-ivory)]">
       <div className="max-w-2xl mx-auto px-6 lg:px-12">
-        <FadeIn>
+        <Reveal>
           {/* Card — simple double border in charcoal, like the printed PDF.
               Generous padding because this is read on screen, not folded. */}
           <div className="bg-white p-2 sm:p-3 border border-[var(--color-charcoal)]">
@@ -215,10 +215,10 @@ export function DailyMenuSection() {
               </div>
             </div>
           </div>
-        </FadeIn>
+        </Reveal>
 
         {/* CTA */}
-        <FadeIn delay={0.2}>
+        <Reveal>
           <div className="mt-12 text-center">
             <Link
               href="/menu"
@@ -227,7 +227,7 @@ export function DailyMenuSection() {
               Kompletní menu
             </Link>
           </div>
-        </FadeIn>
+        </Reveal>
       </div>
     </section>
   );
