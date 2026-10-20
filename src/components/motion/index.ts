@@ -5,3 +5,4 @@ export { SlideIn } from "./SlideIn";
 export { StaggerContainer } from "./StaggerContainer";
 export { StaggerItem } from "./StaggerItem";
 export { AnimatedImage } from "./AnimatedImage";
+export { Reveal } from "./Reveal";
