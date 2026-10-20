@@ -38,57 +38,58 @@ export interface WineItem {
 
 export const PREDKRMY: FullMenuItem[] = [
   {
-    name: "Hovězí carpaccio",
-    description: "Lanýžová majonéza, bylinkové pesto, domácí focaccia",
+    name: "Míchaný tatarský biftek z pravé svíčkové",
+    description: "Topinky 3 ks",
     allergens: "1,3",
-    weight: "100g",
-    price: 295,
-  },
-  {
-    name: "Vepřové krokety 3 ks",
-    description:
-      "Omáčka z pečeného česneku, nakládaná zelenina, rozpečený chléb",
-    allergens: "1,3,7",
-    price: 185,
+    weight: "150g",
+    price: 349,
   },
   {
     name: "Grilovaný kozí sýr ve slanině",
     description: "Rukolový salát s brusinkami, domácí focaccia",
     allergens: "1,7",
-    price: 170,
+    weight: "100g",
+    price: 179,
+  },
+  {
+    name: "Domácí pomazánka z pečeného bůčku",
+    description: "Rozpečený chléb",
+    allergens: "1",
+    weight: "100g",
+    price: 119,
   },
 ];
 
 export const POLEVKY: FullMenuItem[] = [
   {
-    name: "Hovězí vývar s játrovými knedlíčky",
-    description: "Zelenina, nudle",
+    name: "Silný vývar z hovězích líček",
+    description: "Kořenová zelenina, celestýnské nudle",
     allergens: "1,3,9",
-    price: 70,
+    price: 85,
   },
   {
     name: "Zámecká cibulačka se slaninou",
     description: "Vídeňská cibulka, bylinkové krutony",
     allergens: "1,3,7",
-    price: 85,
+    price: 89,
   },
 ];
 
 export const SALATY: FullMenuItem[] = [
   {
-    name: "Caesar s grilovaným kuřecím masem",
-    description: "Krutony, slaninový chips, parmezán",
+    name: "Caesar salát s kuřecím masem",
+    description: "Římský salát, slanina, krutony a parmazán",
     allergens: "1,3,7",
     weight: "300g",
-    price: 285,
+    price: 289,
   },
   {
-    name: "Grilovaný kozí sýr na listovém salátu",
+    name: "Salát s grilovaným kozím sýrem",
     description:
-      "Zelenina, červená řepa, medovo-hořčičná emulze, opečený toast",
-    allergens: "1,3,7,10",
+      "Listové saláty, červená řepa, vlašské ořechy a medový dresink, focaccia",
+    allergens: "1,7,8,10",
     weight: "300g",
-    price: 295,
+    price: 299,
   },
 ];
 
@@ -101,25 +102,19 @@ export const HOVEZI_MASO: FullMenuItem[] = [
     price: 595,
   },
   {
-    name: "Filírovaný flank steak",
-    description: "Opečené grenaile se žampiony",
-    allergens: "1,11",
-    weight: "250g",
-    price: 425,
+    name: "Hovězí nudličky z pravé svíčkové",
+    description: "S restovanou zeleninou, jasmínová rýže",
+    allergens: "1,6",
+    weight: "150g",
+    price: 395,
   },
   {
-    name: "Burger z irského chuck rollu",
-    description: "Čedar a slaninový dip, domácí hranolky",
+    name: "Hovězí burger",
+    description:
+      "Čedar, slanina, karamelizovaná cibule, slaninová majonéza, hranolky",
     allergens: "1,3,7,11",
     weight: "180g",
-    price: 315,
-  },
-  {
-    name: "Tatarský biftek z pravé svíčkové",
-    description: "Topinky 4 ks",
-    allergens: "1,3,6,10",
-    weight: "150g",
-    price: 345,
+    price: 335,
   },
 ];
 
@@ -133,9 +128,9 @@ export const VEPROVE_MASO: FullMenuItem[] = [
   },
   {
     name: 'Na másle smažený řízek „Tomahawk"',
-    description: "Lehký bramborový salát",
+    description: "Vařené brambory s máslem a petrželkou",
     allergens: "1,3,7,10",
-    weight: "300g",
+    weight: "350g",
     price: 295,
   },
   {
@@ -144,11 +139,11 @@ export const VEPROVE_MASO: FullMenuItem[] = [
       "Slaninové fazolky s česnekem, omáčka z italské gorgonzoly",
     allergens: "1,7",
     weight: "200g",
-    price: 335,
+    price: 339,
   },
   {
-    name: "Vepřová líčka v hříbkové omáčce",
-    description: "Restované vaječné špecle",
+    name: "Konfitovaná vepřová líčka",
+    description: "Hříbková omáčka, restované špecle na másle",
     allergens: "1,3,7,10",
     weight: "200g",
     price: 310,
@@ -157,31 +152,24 @@ export const VEPROVE_MASO: FullMenuItem[] = [
 
 export const DRUBEZI_MASO_A_RYBY: FullMenuItem[] = [
   {
-    name: "Kuřecí prso",
-    description:
-      "Se smetanovo-liškovou omáčkou, domácí bramborové placky",
+    name: "Kuřecí prso se smetanovo-liškovou omáčkou",
+    description: "Domácí bramborové placky",
     allergens: "1,3,7",
     weight: "200g",
     price: 310,
   },
   {
-    name: "Filírované kuřecí prsíčko sous-vide",
-    description: "Lanýžové rizoto",
+    name: "Pomalu pečené kachní stehno",
+    description: "Karlovarský špalíček, červené brusinkové zelí",
     allergens: "7",
-    weight: "200g",
-    price: 325,
-  },
-  {
-    name: "Konfitované kachní stehno",
-    description: "Karlovarský špalíček, červené zelí",
-    allergens: "1,3,7",
     weight: "300g",
-    price: 345,
+    price: 349,
   },
   {
-    name: "Steak z norského lososa",
-    description: "Grilovaná zelenina",
-    allergens: "4,11",
+    name: "Grilovaný candát",
+    description:
+      "Gratinované brambory s kořenovou zeleninou, citronová omáčka",
+    allergens: "4,7,9",
     weight: "200g",
     price: 380,
   },
@@ -189,11 +177,11 @@ export const DRUBEZI_MASO_A_RYBY: FullMenuItem[] = [
 
 export const VEGETARIANSKA_JIDLA: FullMenuItem[] = [
   {
-    name: "Těstoviny s pestem z medvědího česneku",
-    description: "Fermentované ředkvičky",
-    allergens: "1,3,7,8",
+    name: "Linguine s restovanou cuketou",
+    description: "Nakládaná šalotka v bazalkové omáčce",
+    allergens: "1",
     weight: "300g",
-    price: 245,
+    price: 249,
     isVegetarian: true,
   },
   {
@@ -208,17 +196,18 @@ export const VEGETARIANSKA_JIDLA: FullMenuItem[] = [
 
 export const DETSKA_JIDLA: FullMenuItem[] = [
   {
-    name: "Těstoviny s boloňskou omáčkou",
+    name: "Linguine s boloňskou omáčkou",
+    description: "Parmazán",
     allergens: "1,3",
     weight: "200g",
-    price: 160,
+    price: 169,
   },
   {
     name: "Kuřecí řízek",
     description: "Vařené brambory",
     allergens: "1,3,7",
     weight: "100g",
-    price: 165,
+    price: 179,
   },
 ];
 
@@ -226,17 +215,17 @@ export const PRILOHY: SideItem[] = [
   { name: "Vařené brambory", price: 45 },
   { name: "Šťouchané brambory", price: 50 },
   { name: "Bramborové placky", price: 65 },
-  { name: "Domácí hranolky", price: 60 },
+  { name: "Domácí hranolky", price: 65 },
   { name: "Jasmínová rýže", price: 50 },
   { name: "Grilovaná zelenina", price: 85 },
   { name: "Fazolky se slaninou", price: 85 },
-  { name: "Miska čerstvé zeleniny", price: 80 },
+  { name: "Miska čerstvé zeleniny", price: 90 },
 ];
 
 export const OMACKY_STUDENE: SideItem[] = [
   { name: "Tatarská omáčka", price: 45 },
   { name: "Slaninový dip", price: 55 },
-  { name: "Kečup", price: 30 },
+  { name: "Kečup", price: 35 },
 ];
 
 export const OMACKY_TEPLE: SideItem[] = [
@@ -244,39 +233,45 @@ export const OMACKY_TEPLE: SideItem[] = [
   { name: "Pepřová omáčka", price: 65 },
   { name: "Demi glace", price: 55 },
   { name: "Omáčka z modrého sýru", price: 65 },
-  { name: "Omáčka z pečeného česneku", price: 65 },
+  { name: "Hříbková omáčka", price: 65 },
 ];
 
 export const DEZERTY: FullMenuItem[] = [
   {
-    name: "Macerovaná hruška",
+    name: "Čokoládový fondant",
     description:
-      "Omáčka ze slaného karamelu, lískoříškový griliáš",
-    allergens: "7,8,12",
-    price: 185,
+      "Jahodová zmrzlina, zakysaná smetana a čerstvé ovoce",
+    allergens: "1,3,7",
+    price: 189,
   },
   {
-    name: "Crème brûlée",
-    description: "Křehká karamelová krusta, čerstvé ovoce",
+    name: "Karamelové Crème brûlée",
+    description: "Křehká krusta, čerstvé ovoce",
     allergens: "3,7",
-    price: 140,
+    price: 159,
+  },
+  {
+    name: "Dukátová buchta",
+    description: "Vanilková omáčka s višněmi",
+    allergens: "1,3,7",
+    price: 149,
   },
   {
     name: "Zmrzlinový pohár",
     description: "Lesní ovoce, šlehačka",
-    allergens: "7",
-    price: 170,
-  },
-  {
-    name: "Tvarohové knedlíčky",
-    description: "Meruňkový rozvar",
     allergens: "1,3,7,12",
-    price: 145,
+    price: 179,
   },
   {
-    name: "Kopečková zmrzlina",
+    name: "Horké maliny",
+    description: "Vanilková zmrzlina se šlehačkou",
+    allergens: "3,7",
+    price: 169,
+  },
+  {
+    name: "Kopeček zmrzliny",
     allergens: "7",
-    price: 40,
+    price: 49,
   },
 ];
 
