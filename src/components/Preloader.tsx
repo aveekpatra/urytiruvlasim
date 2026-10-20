@@ -88,7 +88,7 @@ export function Preloader() {
           <div className="absolute inset-0 rounded-full border-[3px] border-white/90 border-t-[var(--color-gold)] animate-spin" />
           <img src={cdn("/Logo.svg")} alt="" className="h-14 w-auto" />
         </div>
-        <p className="preloader-text font-serif uppercase text-center text-[calc(1.25rem+2vw)] leading-none tracking-[0.2em] pl-[0.2em]">
+        <p className="font-serif text-white uppercase text-center text-[calc(1.25rem+2vw)] leading-none tracking-[0.2em] pl-[0.2em]">
           U Blanických rytířů
         </p>
       </div>
