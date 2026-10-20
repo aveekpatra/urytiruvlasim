@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import { m, useReducedMotion } from "framer-motion";
+import { m, useInView, useReducedMotion } from "framer-motion";
+import { useSiteReady } from "./siteReady";
 
 /* Scroll reveal from the Bioscha site: fade + 26px rise + 10px blur,
    1100ms easeOutCubic, once per element. Like Bioscha's script.js, each
    element waits 110ms per earlier sibling reveal, capped at 3 so nothing
-   feels queued. */
+   feels queued. Nothing plays until the loading screen leaves. */
 const EASE: [number, number, number, number] = [0.33, 1, 0.68, 1];
 
 function siblingIndex(el: Element | null) {
@@ -28,14 +29,19 @@ interface RevealProps {
 export function Reveal({ children, delay = 0, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+  const inView = useInView(ref, {
+    once: true,
+    margin: "0px 0px -8% 0px",
+    amount: 0.08,
+  });
+  const siteReady = useSiteReady();
 
   return (
     <m.div
       ref={ref}
       data-reveal=""
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "0px 0px -8% 0px", amount: 0.08 }}
+      animate={inView && siteReady ? "visible" : "hidden"}
       variants={{
         hidden: { opacity: 0, y: 26, filter: "blur(10px)" },
         // Resolved when the element enters view, so the siblings are in the DOM.

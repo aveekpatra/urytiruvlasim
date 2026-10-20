@@ -207,6 +207,7 @@ export default function SvatbyPage() {
                     src={cdn("/images/JHK09458-Enhanced-NR.jpg")}
                     alt="Restaurace — slavnostní tabule"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
                 </div>
@@ -278,6 +279,7 @@ export default function SvatbyPage() {
                       src={space.image}
                       alt={space.name}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
@@ -369,6 +371,7 @@ export default function SvatbyPage() {
                   src={img.src}
                   alt={img.alt}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />

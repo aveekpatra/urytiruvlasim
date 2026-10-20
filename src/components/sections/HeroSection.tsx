@@ -15,8 +15,10 @@ export function HeroSection() {
         muted
         loop
         playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
         src={IMAGES.hero.video}
+        poster={IMAGES.hero.poster}
       />
 
       {/* Gradient Overlay */}

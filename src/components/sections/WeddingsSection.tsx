@@ -84,6 +84,7 @@ export function WeddingsSection() {
                     src={IMAGES.wedding.gallery[0]}
                     alt="Svatební hostina"
                     fill
+                    sizes="25vw"
                     className="object-cover"
                   />
                 </div>
@@ -94,6 +95,7 @@ export function WeddingsSection() {
                     src={IMAGES.wedding.gallery[1]}
                     alt="Zámecký park"
                     fill
+                    sizes="25vw"
                     className="object-cover"
                   />
                 </div>
@@ -106,6 +108,7 @@ export function WeddingsSection() {
                     src={IMAGES.wedding.gallery[2]}
                     alt="Svatební tabule"
                     fill
+                    sizes="25vw"
                     className="object-cover"
                   />
                 </div>
@@ -116,6 +119,7 @@ export function WeddingsSection() {
                     src={IMAGES.wedding.gallery[3]}
                     alt="Novomanželé"
                     fill
+                    sizes="25vw"
                     className="object-cover"
                   />
                 </div>

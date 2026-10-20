@@ -1,20 +1,43 @@
 /**
  * Local restaurant images — professional photography by JHK
- * Served from GitHub raw to reduce Vercel CDN bandwidth costs.
+ * Served from jsDelivr's free GitHub CDN instead of Vercel, pinned to the
+ * commit that holds the files so browsers and the CDN can cache them forever.
+ * After changing anything in public/: run `npm run optimize-media`, commit
+ * and push, then set MEDIA_COMMIT to that commit. Dev serves public/ locally.
  */
 
-const CDN_BASE =
-  "https://raw.githubusercontent.com/aveekpatra/urytiruvlasim/master/public";
+const MEDIA_COMMIT = "02a5771159394e6f2739457a079b41a9759045cd";
 
-/** Prefix any /public path with GitHub raw CDN */
+const CDN_BASE =
+  process.env.NODE_ENV === "development"
+    ? ""
+    : `https://cdn.jsdelivr.net/gh/aveekpatra/urytiruvlasim@${MEDIA_COMMIT}/public`;
+
+/** Prefix any /public path with the media CDN */
 export function cdn(path: string): string {
   return `${CDN_BASE}${path}`;
+}
+
+/** Widths built by scripts/optimize-media.mjs */
+export const MEDIA_WIDTHS = [640, 1280, 1920];
+
+/**
+ * The WebP copy of a /public/images file at the smallest built width that
+ * covers `width`. Returns null for anything that has no built copies.
+ */
+export function optimizedSrc(src: string, width: number): string | null {
+  const match = src.match(/^(.*)\/images\/(.+)\.(jpe?g|png)$/i);
+  if (!match || match[1] !== CDN_BASE) return null;
+  const built =
+    MEDIA_WIDTHS.find((w) => w >= width) ?? MEDIA_WIDTHS[MEDIA_WIDTHS.length - 1];
+  return cdn(`/media/images/${match[2]}-${built}.webp`);
 }
 
 export const IMAGES = {
   // Hero Section - Local video
   hero: {
-    video: cdn("/bg.mp4"),
+    video: cdn("/media/bg.mp4"),
+    poster: cdn("/media/bg-poster.webp"),
     fallback: cdn("/images/JHK09411-Enhanced-NR.jpg"),
   },
 

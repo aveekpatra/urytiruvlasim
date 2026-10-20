@@ -2,7 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
+    // Pre-built WebP copies on the media CDN, see src/lib/imageLoader.ts
+    loader: "custom",
+    loaderFile: "./src/lib/imageLoader.ts",
+    deviceSizes: [640, 1280, 1920],
+    imageSizes: [],
     remotePatterns: [
       {
         protocol: "https",

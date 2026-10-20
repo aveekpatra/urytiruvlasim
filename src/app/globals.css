@@ -132,3 +132,40 @@ h1, h2, h3, h4 {
 .btn-elegant:hover {
   transform: translateY(-2px);
 }
+
+/* Loading screen wordmark: outlined letters with a light sweeping through,
+   after abu-tailwind.vercel.app */
+.preloader-text {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0% 16.66%,
+    var(--color-gold) 33.33% 50%,
+    transparent 66.66% 75%
+  );
+  background-size: 500%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.5px rgb(255 255 255 / 0.6);
+  animation: preloader-sweep 2s linear infinite;
+}
+
+@keyframes preloader-sweep {
+  from {
+    background-position: 100%;
+  }
+  to {
+    background-position: 0%;
+  }
+}
+
+/* If scripts never run, don't leave the cover up */
+.site-preloader {
+  animation: preloader-failsafe 0s 10s forwards;
+}
+
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
